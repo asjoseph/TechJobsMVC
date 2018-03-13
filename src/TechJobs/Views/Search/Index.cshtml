@@ -1,6 +1,7 @@
 ﻿<h1>@ViewBag.title</h1>
 
-<form action="/Search/Results">
+<form method= 'POST' action="/Search/Results">
+    <br>
     <h2>Search by:</h2>
 
     <p>
@@ -33,4 +34,21 @@
     <h3>@ViewBag.jobs.Count Result(s)</h3>
 
     // TODO #2 - Loop over jobs dictionary and display all job fields 
-}
+    // create a loop to display each job passed in from the controller. 
+    // You should put each job in its own table, with one job field per row.
+    // Add the CSS class "job-listing" to each of the tables to get some nice styling, courtesy of Eliot's work!
+    
+    @foreach (Dictionary<string, string> job in ViewBag.jobs)
+    {
+        <table class="job-listing" table-striped>
+            @foreach (KeyValuePair<string, string> jobDisplay in job)
+            {
+                <tr>
+                    <td>@jobDisplay.Key :</td>
+                    <td>@jobDisplay.Value</td>
+                </tr>
+            }
+        </table>
+
+     }
+ }
