@@ -1,8 +1,6 @@
 ﻿<h1>@ViewBag.title</h1>
 
 <form method= 'POST' action="/Search/Results">
-    <br>
-    <h2>Search by:</h2>
 
     <p>
         @foreach (KeyValuePair<string, string> column in ViewBag.columns)
@@ -12,7 +10,7 @@
                        name="searchType"
                        id="@column.Key"
                        value="@column.Key" 
-                       checked="@column.Key == 'all''"/>
+                       checked="@(column.Key == ViewBag.searchType)"/>
                 <label for="@column.Key">@column.Value</label>
             </span>
         }
@@ -20,7 +18,7 @@
 
     <p>
         <label for="searchTerm">Keyword:</label>
-        <input type="text" name="searchTerm" id="searchTerm" />
+        <input type="text" name="searchTerm" id="searchTerm" value="@ViewBag.searchTerm" />
     </p>
 
     <input type="submit" value="Search" />
