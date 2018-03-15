@@ -25,7 +25,7 @@ namespace TechJobs.Controllers
         //Note that this is not the default view for this action.
         //You'll also need to pass ListController.columnChoices to the view, as is done in the Index method.
         [HttpPost]
-        public IActionResult Results(string searchType, string searchTerm)
+        public IActionResult Results(string searchType = "all", string searchTerm = "")
         {
             
 
@@ -36,7 +36,9 @@ namespace TechJobs.Controllers
             if (searchType.Equals("all"))
             {
                 List<Dictionary<string, string>> Jobs = JobData.FindByValue(searchTerm);
+
                 ViewBag.jobs = Jobs;
+
                 return View("Index");
             }
             else
