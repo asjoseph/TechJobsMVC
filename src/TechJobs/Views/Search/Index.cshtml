@@ -1,7 +1,7 @@
 ﻿<h1>@ViewBag.title</h1>
 
-<form method= 'POST' action="/Search/Results">
-
+<form action="/Search/Results">
+    <h2> Search by: </h2>
     <p>
         @foreach (KeyValuePair<string, string> column in ViewBag.columns)
         {
@@ -10,7 +10,7 @@
                        name="searchType"
                        id="@column.Key"
                        value="@column.Key" 
-                       checked="@(column.Key == ViewBag.searchType)"/>
+                       checked="@column.Key == 'all''"/>
                 <label for="@column.Key">@column.Value</label>
             </span>
         }
@@ -18,7 +18,7 @@
 
     <p>
         <label for="searchTerm">Keyword:</label>
-        <input type="text" name="searchTerm" id="searchTerm" value="@ViewBag.searchTerm" />
+        <input type="text" name="searchTerm" id="searchTerm" />
     </p>
 
     <input type="submit" value="Search" />
@@ -42,7 +42,7 @@
             @foreach (KeyValuePair<string, string> jobDisplay in job)
             {
                 <tr>
-                    <td>@jobDisplay.Key :</td>
+                    <td>@jobDisplay.Key</td>
                     <td>@jobDisplay.Value</td>
                 </tr>
             }
