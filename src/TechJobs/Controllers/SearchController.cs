@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using TechJobs.Models;
+using System.Linq;
 
 namespace TechJobs.Controllers
 {
     public class SearchController : Controller
     {
+        internal static Dictionary<string, string> columnChoices = new Dictionary<string, string>();
+
         public IActionResult Index()
         {
             ViewBag.columns = ListController.columnChoices;
@@ -24,32 +28,22 @@ namespace TechJobs.Controllers
         //you'll need to pass them into the Views/Search/Index.cshtml view.
         //Note that this is not the default view for this action.
         //You'll also need to pass ListController.columnChoices to the view, as is done in the Index method.
-        [HttpPost]
-        public IActionResult Results(string searchType = "all", string searchTerm = "")
+        public IActionResult Results(string searchType, string searchTerm)
         {
-            
+            ViewBag.columns = ListController.columnChoices;
 
-            //if (string.IsNullOrEmpty(searchTerm))
-            //{
-              //  return View("Index");
-            //}
             if (searchType.Equals("all"))
             {
-                List<Dictionary<string, string>> Jobs = JobData.FindByValue(searchTerm);
-
-                ViewBag.jobs = Jobs;
-
-                return View("Index");
+                ViewBag.jobs = JobData.FindByValue(searchTerm);
+                ViewBag.title = "All Jobs";
             }
             else
             {
-                List<Dictionary<string, string>> Jobs = JobData.FindByColumnAndValue(searchType, searchTerm);
-                ViewBag.columns = ListController.columnChoices;
-
-                ViewBag.jobs = Jobs;
-
-                return View("Index");
+                ViewBag.jobs = JobData.FindByColumnAndValue(searchType, searchTerm);
             }
+
+            return View("Index");
+
         }
     }
 }
